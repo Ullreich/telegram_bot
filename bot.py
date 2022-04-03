@@ -1,18 +1,15 @@
-from telegram import Update
-from telegram.ext import CallbackContext
-from telegram.ext import CommandHandler
-from telegram.ext import Updater
-updater =  Updater(token='5238357535:AAFShZRCdaIMttsBMPKw9DpmOdRTDaGL1zU', use_context=True)
-dispatcher = updater.dispatcher
+import telegram
 
-import logging
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                     level=logging.INFO)
 
-def start(update: Update, context: CallbackContext):
-    context.bot.send_message(chat_id=update.effective_chat.id, text="I'm a bot, please talk to me!")
+#token that can be generated talking with @BotFather on telegram
+my_token = '5238357535:AAFShZRCdaIMttsBMPKw9DpmOdRTDaGL1zU'
 
-start_handler = CommandHandler('start', start)
-dispatcher.add_handler(start_handler)
-
-updater.start_polling()
+def send(msg, chat_id, token=my_token):
+    """
+    Send a message to a telegram user or group specified on chatId
+    chat_id must be a number!
+    """
+    bot = telegram.Bot(token=token)
+    bot.sendMessage(chat_id=chat_id, text=msg)
+    
+send("hi", 375269856)
