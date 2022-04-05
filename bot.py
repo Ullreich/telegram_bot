@@ -2,11 +2,11 @@ import telegram
 import argparse
 
 # construct parser
-all_args = argparse.ArgumentParser()
+parser = argparse.ArgumentParser()
 
 # add args
-all_args.add_argument("-f", "--file", required=True)
-args = vars(all_args)
+parser.add_argument("-f", "--file", required=True)
+args = parser.parse_args()
 
 
 #token that can be generated talking with @BotFather on telegram
@@ -22,11 +22,10 @@ def send(msg, chat_id=my_id, token=my_token):
     bot = telegram.Bot(token=token)
     bot.sendMessage(chat_id=chat_id, text=msg)
 
-def send_doc(file, chat_id=my_id, token=my_token):
-    # tele_file = telegram.Document("bot.py", "hello_test_1234512345")
+def send_doc(file=args.file, chat_id=my_id, token=my_token):
     bot = telegram.Bot(token=token)
-    bot.sendDocument(chat_id=chat_id, document=open("bot.py", "rb"))
-    
+    bot.sendDocument(chat_id=chat_id, document=open(file, "rb"))
+
 if __name__=="__main__":    
 
-    send_doc("hi")
+    send_doc()
