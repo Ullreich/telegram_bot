@@ -1,20 +1,26 @@
 import telegram
 import argparse
+from os.path import exists
 
 # construct parser
 parser = argparse.ArgumentParser()
 
 # add args
-parser.add_argument("-f", "--file", required=True)
+parser.add_argument("-f", "--file", required=False)
+parser.add_argument("-m", "--message", required=False)
 args = parser.parse_args()
 
 
 #token that can be generated talking with @BotFather on telegram
-with open("/home/ferdinand/projects/telegram_bot/vbc_clip_bot_token.txt") as f:
-    my_token = f.read().replace("\n", "")
+if exists("./vbc_clip_bot_token.txt"):
+    with open("./vbc_clip_bot_token.txt") as f:
+        my_token = f.read().replace("\n", "")
+else:
+    with open("/users/ferdinand.ullreich/scripts/telegram_bot/vbc_clip_bot_token.txt") as f:
+        my_token = f.read().replace("\n", "")
 my_id = 375269856
 
-def send(msg, chat_id=my_id, token=my_token):
+def send_msg(msg, chat_id=my_id, token=my_token):
     """
     Send a message to a telegram user or group specified on chatId
     chat_id must be a number!
@@ -27,5 +33,8 @@ def send_doc(file=args.file, chat_id=my_id, token=my_token):
     bot.sendDocument(chat_id=chat_id, document=open(file, "rb"))
 
 if __name__=="__main__":    
-
-    send_doc()
+    if args.message:
+        send_msg()
+        
+    if args.file:
+        send_doc()
