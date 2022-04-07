@@ -11,20 +11,18 @@ parser.add_argument("-m", "--message", required=False)
 args = parser.parse_args()
 
 
-#token that can be generated talking with @BotFather on telegram
+# token that can be generated talking with @BotFather on telegram
+# change this path based on where you store the token
 if exists("./vbc_clip_bot_token.txt"):
     with open("./vbc_clip_bot_token.txt") as f:
         my_token = f.read().replace("\n", "")
 else:
     with open("/users/ferdinand.ullreich/scripts/telegram_bot/vbc_clip_bot_token.txt") as f:
         my_token = f.read().replace("\n", "")
+# to find out your chatid you can run the get_chat_id.py script
 my_id = 375269856
 
 def send_msg(msg, chat_id=my_id, token=my_token):
-    """
-    Send a message to a telegram user or group specified on chatId
-    chat_id must be a number!
-    """
     bot = telegram.Bot(token=token)
     bot.sendMessage(chat_id=chat_id, text=msg)
 
