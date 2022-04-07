@@ -22,7 +22,7 @@ else:
 # to find out your chatid you can run the get_chat_id.py script
 my_id = 375269856
 
-def send_msg(msg, chat_id=my_id, token=my_token):
+def send_msg(msg=args.message, chat_id=my_id, token=my_token):
     bot = telegram.Bot(token=token)
     bot.sendMessage(chat_id=chat_id, text=msg)
 
